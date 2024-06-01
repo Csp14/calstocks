@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/financial_details/{{ ticker_symbol }}" class="nav-link">Financial Details</a></li>
+                <li><a href="/holding_details/{{ ticker_symbol }}" class="nav-link">Holding Details</a></li>
+                <li><a href="/recommendations/{{ ticker_symbol }}" class="nav-link">Analyst Sentiment</a></li>
+                <li><a href="/pricing_data/{{ ticker_symbol }}"class="nav-link">Price Targets</a></li>
+                <li><a href="/bored/" class="nav-link">Bored?</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Stock Analysis</h1>
+    <form action="/" method="post">
+        <label for="ticker">Enter Stock Ticker Symbol:</label>
+        <input type="text" id="ticker" name="ticker" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if company_name %}
+    <h1><strong></strong>{{ company_name }}</h3>
+    <h2><strong>Current Price:</strong> $<span id="livePrice">{{ current_price }}</span></p></h2>
+    <h2>Company Information</h2>
+    
+    <p><strong>Description:</strong> {{ company_description }}</p>
+    <a href="/financial_details/{{ ticker_symbol }}" class="button">Financial Details</a>
+    <a href="/holding_details/{{ ticker_symbol }}" class="button">Holding Details</a>
+    {% endif %}
+
+    {% if signal %}
+    <h2>Signal for {{ ticker_symbol }} using EMA Cross Over Strategy: {{ signal }}</h2>
+    <p id="exp">Exponential Moving Averages (EMAs):</p>
+    <p id="exp">EMA 5-day: {{ ema_5 }}</p>
+    <p id="exp">EMA 10-day: {{ ema_10 }}</p>
+    <p id="exp">EMA 20-day: {{ ema_20 }}</p>
+    {% endif %}
+
+    <script>
+        function updateLivePrice() {
+            fetch('/liveprice/{{ ticker_symbol }}')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('livePrice').textContent = data.live_price;
+                });
+        }
+    
+        setInterval(updateLivePrice, 1000); // Update every 30 seconds
+    </script>
+</body>
+</html>

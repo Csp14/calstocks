@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/financial_details/{{ ticker_symbol }}" class="nav-link">Financial Details</a></li>
+                <li><a href="/holding_details/{{ ticker_symbol }}" class="nav-link">Holding Details</a></li>
+                <li><a href="/recommendations/{{ ticker_symbol }}" class="nav-link">Analyst Sentiment</a></li>
+                <li><a href="/pricing_data/{{ ticker_symbol }}"class="nav-link">Price Targets</a></li>
+                <li><a href="/bored/" class="nav-link">Bored?</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Ticker: {{ ticker_symbol }}</h1>
+    <div class="data_container">
+        <div class="data">
+            <p>Analyst High Price Target: <strong>{{ high_price }}</strong></p>
+            <p class="low_price">Analyst Low Price Target: <strong>{{low_price}}</strong></p>
+            <p class="current_price">Current Price: <strong>{{ live_price }}</strong></p>
+            <p id="percentage_high_target">Percentage From High Price Target: <strong>{{ percentage_high_target }}</strong></p>
+            <p id="percentage_low_target">Percentage From Low Price Target: <strong>{{ percentage_low_target }}</strong></p>
+        </div>
+    </div>
+    <div id="plot-container">
+        {{ plot_html | safe }}
+    </div>
+    <script src="/script.js"></script>
+
+</body>
+</html>

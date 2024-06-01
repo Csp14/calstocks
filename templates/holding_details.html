@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holding Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/financial_details/{{ ticker_symbol }}" class="nav-link">Financial Details</a></li>
+                <li><a href="/holding_details/{{ ticker_symbol }}" class="nav-link">Holding Details</a></li>
+                <li><a href="/recommendations/{{ ticker_symbol }}" class="nav-link">Analyst Sentiment</a></li>
+                <li><a href="/pricing_data/{{ ticker_symbol }}"class="nav-link">Price Targets</a></li>
+                <li><a href="/bored/" class="nav-link">Bored?</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Holding Details for {{ ticker_symbol }}</h1>
+    
+    <h2>Major Holders</h2>
+    <pre>{{ major_holders }}</pre>
+    
+    <h2>Institutional Holders</h2>
+    <pre>{{ institutional_holders }}</pre>
+    
+    <h2>Mutual Fund Holders</h2>
+    <pre>{{ mutualfund_holders }}</pre>
+    
+    <h2>Insider Transactions</h2>
+    <pre>{{ insider_transactions }}</pre>
+    
+    <h2>Insider Purchases</h2>
+    <pre>{{ insider_purchases }}</pre>
+    
+    <h2>Insider Roster Holders</h2>
+    <pre>{{ insider_roster_holders }}</pre>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Chart - {{ ticker_symbol }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='chart.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/financial_details/{{ ticker_symbol }}" class="nav-link">Financial Details</a></li>
+                <li><a href="/holding_details/{{ ticker_symbol }}" class="nav-link">Holding Details</a></li>
+                <li><a href="/recommendations/{{ ticker_symbol }}" class="nav-link">Analyst Sentiment</a></li>
+                <li><a href="/bored" class="nav-link">Bored?</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% if company_name %}
+    <h1>Stock Chart of {{ company_name }}</h1>
+    <p><strong>Live Price:</strong> $<span id="livePrice">{{ current_price }}</span></p>
+    {% endif %}
+ 
+    {% if chart %}
+    <div id="main-content">
+        <div id="stock-chart">
+            {{ chart | safe }}
+        </div>
+    </div>
+    {% endif %}
+    <script>
+        function updateLivePrice() {
+            fetch('/liveprice/{{ ticker_symbol }}')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('livePrice').textContent = data.live_price;
+                });
+        }
+
+        setInterval(updateLivePrice, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>

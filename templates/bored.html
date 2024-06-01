@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@405&family=Space+Grotesk:wght@428&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/financial_details/{{ ticker_symbol }}" class="nav-link">Financial Details</a></li>
+                <li><a href="/holding_details/{{ ticker_symbol }}" class="nav-link">Holding Details</a></li>
+                <li><a href="/recommendations/{{ ticker_symbol }}" class="nav-link">Analyst Sentiment</a></li>
+                <li><a href="/pricing_data/{{ ticker_symbol }}"class="nav-link">Price Targets</a></li>
+                <li><a href="/bored/" class="nav-link">Bored?</a></li>
+            </ul>
+        </div>
+    </nav>
+    <video width="800" height="400" controls>
+        <source src="" type="video/mp4">
+    </video>
+</body>
+

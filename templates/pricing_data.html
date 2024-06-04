@@ -32,9 +32,13 @@
             <p id="percentage_high_target">Percentage From High Price Target: <strong>{{ percentage_high_target }}</strong></p>
             <p id="percentage_low_target">Percentage From Low Price Target: <strong>{{ percentage_low_target }}</strong></p>
         </div>
+        <div class="plot-container">
+            {{ plot_html | safe }}
+        </div>
     </div>
-    <div id="plot-container">
-        {{ plot_html | safe }}
+
+    <div>
+        {{ graph_html | safe }}
     </div>
     <script src="/script.js"></script>
 

@@ -1,8 +1,52 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import yfinance as yf
 from ta.trend import EMAIndicator
 from create_plot import create_plot
+from graph_test import graph
+from admin_routes import *
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+admin_message = None
+#login admin
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "password123"
+
+@app.route('/login', methods=['GET', 'POST'])
+def admin_login():
+    return login()
+
+@app.route('/admin/dashboard', methods=['GET', 'POST'])
+def admin_dashboard_route():
+    return admin_dashboard()
+
+@app.route('/logout', methods=['GET', 'POST'])
+def admin_logout():
+    return logout()
+
+
+@app.route('/admin/message', methods=['POST'])
+def admin_message_route():
+    global admin_message
+    message = request.form['message']
+    admin_message = message
+    return redirect(url_for('admin_dashboard_route'))  
+
+
+@app.route('/bored')
+def bored():
+    global admin_message
+    if admin_message:
+        message = admin_message
+        admin_message = None  # Reset the admin message after displaying it once
+    else:
+        message = "No message from admin"
+    return render_template('bored.html', message=message)
+
+
+
+
 
 def get_company_info(ticker_symbol):
     stock = yf.Ticker(ticker_symbol)
@@ -10,7 +54,11 @@ def get_company_info(ticker_symbol):
     company_name = stock.info['longName']
     company_description = stock.info['longBusinessSummary']
     current_price = get_live_price(ticker_symbol)
-    return company_name, company_description, current_price
+    sector = stock.info['sector']
+    industry = stock.info['industry']
+    recommendation = stock.info['recommendationKey']
+
+    return company_name, company_description, current_price, sector, industry, recommendation
 
 def get_live_price(ticker_symbol):
     stock = yf.Ticker(ticker_symbol)
@@ -52,12 +100,13 @@ def index():
         data = yf.download(ticker_symbol, period="1y")
         data.dropna(inplace=True)
         signal = generate_signals(data)
-        company_name, company_description, current_price = get_company_info(ticker_symbol)
+        company_name, company_description, current_price, sector, industry, recommendation = get_company_info(ticker_symbol)
         ema_5 = data['ema_5'].iloc[-1]
         ema_10 = data['ema_10'].iloc[-1]
         ema_20 = data['ema_20'].iloc[-1]
         return render_template('index.html', ticker_symbol=ticker_symbol, signal=signal, ema_5=ema_5, ema_10=ema_10, ema_20=ema_20,
-                               company_name=company_name, company_description=company_description, current_price=current_price)
+                               company_name=company_name, company_description=company_description, current_price=current_price, sector=sector,
+                                recommendation = recommendation, industry=industry)
     return render_template('index.html')
 
 @app.route('/liveprice/<ticker_symbol>')
@@ -129,12 +178,10 @@ def pricing_data(ticker_symbol):
     percentage_low_target = ((low_price-live_price)/live_price)*100
 
     plot_html = create_plot(percentage_high_target, percentage_low_target)
-
     return render_template('pricing_data.html', ticker_symbol=ticker_symbol, live_price=live_price, high_price = high_price, low_price=low_price, percentage_high_target=percentage_high_target, percentage_low_target=percentage_low_target, plot_html=plot_html)
 
-@app.route('/bored/')
-def bored():
-    return render_template('bored.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+

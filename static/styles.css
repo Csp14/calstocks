@@ -42,10 +42,7 @@ li a:hover {
     background-color: #111;
 }
 
-h1, h2, h3 {
-    text-align: center;
-    margin-top: 20px;
-}
+
 
 form {
     text-align: center;
@@ -68,6 +65,17 @@ button {
     cursor: pointer;
 }
 
+h1{
+    text-align: center;
+}
+.company_information{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.company_name h1{
+    text-align: left;
+}
+
 #results {
     margin-top: 20px;
     padding: 20px;
@@ -81,9 +89,33 @@ button {
 .data_container{
     margin-left: 25px;
     margin-right: 25px;
-
 }
 .data{
     margin-left: 50px;
     
+}
+.data_container .data strong{
+    color: rgb(206, 206, 206);
+}
+.plot-container{
+    margin-left: 50px;
+    width: 35%;
+}
+
+.ema{
+    margin-left: 50px;
+    margin: 50px;
+}
+.ema .ema_h2{
+    text-align: left;
+
+}
+.ema .ema_h2 .ema_h2_text{
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+.ema .ema_results{
+    margin-left: 65px;
 }

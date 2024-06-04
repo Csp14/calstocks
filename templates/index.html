@@ -25,28 +25,48 @@
     </nav>
 
     <h1>Stock Analysis</h1>
-    <form action="/" method="post">
-        <label for="ticker">Enter Stock Ticker Symbol:</label>
-        <input type="text" id="ticker" name="ticker" required>
-        <button type="submit">Submit</button>
-    </form>
-
-    {% if company_name %}
-    <h1><strong></strong>{{ company_name }}</h3>
-    <h2><strong>Current Price:</strong> $<span id="livePrice">{{ current_price }}</span></p></h2>
-    <h2>Company Information</h2>
     
-    <p><strong>Description:</strong> {{ company_description }}</p>
-    <a href="/financial_details/{{ ticker_symbol }}" class="button">Financial Details</a>
-    <a href="/holding_details/{{ ticker_symbol }}" class="button">Holding Details</a>
-    {% endif %}
-
+    <div class="company_information">
+        <div class="search">
+            <form action="/" method="post">
+                <label for="ticker">Enter Stock Ticker Symbol:</label>
+                <input type="text" id="ticker" name="ticker" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="company_name">
+            {% if company_name %}
+            <h1><strong></strong>{{ company_name }}</h3>
+            <h2><strong>Current Price:</strong> $<span id="livePrice">{{ current_price }}</span></p></h2>
+        </div>
+      
+        <div class="company_business summary">
+            <h2>Company Information</h2>
+            <p><strong>Description:</strong> {{ company_description }}</p>
+            <p><strong>Industry: </strong>{{ industry }}</p>
+            <p><strong>Sector: </strong>{{ sector  }}</p>
+            <p><strong>Current Recommendation: </strong>{{ recommendation }}</p>
+            <a href="/financial_details/{{ ticker_symbol }}" class="button">Financial Details</a>
+            <a href="/holding_details/{{ ticker_symbol }}" class="button">Holding Details</a>
+        </div>
+        {% endif %}
+    </div>
+    
     {% if signal %}
-    <h2>Signal for {{ ticker_symbol }} using EMA Cross Over Strategy: {{ signal }}</h2>
-    <p id="exp">Exponential Moving Averages (EMAs):</p>
-    <p id="exp">EMA 5-day: {{ ema_5 }}</p>
-    <p id="exp">EMA 10-day: {{ ema_10 }}</p>
-    <p id="exp">EMA 20-day: {{ ema_20 }}</p>
+    <section>
+        <div class="ema">
+            <div class ="ema_h2">
+                <h2>Signal for {{ ticker_symbol }} using EMA Cross Over Strategy: {{ signal }}</h2>
+                <p class="ema_h2_text">Exponential Moving Averages (EMAs):</p>
+            </div>
+            <div class = "ema_results">
+                <p>EMA 5-day: {{ ema_5 }}</p>
+                <p>EMA 10-day: {{ ema_10 }}</p>
+                <p>EMA 20-day: {{ ema_20 }}</p>
+            </div>
+            
+        </div>
+    </section>
     {% endif %}
 
     <script>

@@ -1,7 +1,7 @@
 from flask import render_template, request, session, redirect, url_for
 
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "password123"
+ADMIN_USERNAME = "Caleb"
+ADMIN_PASSWORD = "hi"
 
 def login():
     if request.method == 'POST':

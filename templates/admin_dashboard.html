@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/login.css">
 </head>
 <body>
-    <h1>Welcome, {{ username }}</h1>
-    <a href="{{ url_for('admin_logout') }}">Logout</a>
-    <h2>Add Admin Message</h2>
-    <form action="{{ url_for('admin_message_route') }}" method="POST">
-        <label for="message">Admin Message:</label><br>
-        <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Submit">
-    </form>    
+    <div class="container">
+        <h1>Welcome, {{ username }}</h1>
+        <h2>Add A Message in the Bored Page</h2>
+        <div class="form-container">
+            <form action="{{ url_for('admin_message_route') }}" method="POST">
+                <label for="message">Admin Message:</label><br>
+                <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+                <input type="submit" value="Submit">
+            </form>    
+        </div>
+        <div class="check-button">
+            <a href="/bored">Check your Message!</a>
+        </div>
+        
+        <a href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+    
 </body>
 </html>

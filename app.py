@@ -10,8 +10,8 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 admin_message = None
 #login admin
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "password123"
+ADMIN_USERNAME = "Caleb"
+ADMIN_PASSWORD = "hi"
 
 @app.route('/login', methods=['GET', 'POST'])
 def admin_login():
@@ -39,7 +39,7 @@ def bored():
     global admin_message
     if admin_message:
         message = admin_message
-        admin_message = None  # Reset the admin message after displaying it once
+        
     else:
         message = "No message from admin"
     return render_template('bored.html', message=message)

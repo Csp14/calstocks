@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/static/login.css">
 </head>
 <body>
-    <h1>Congrats you found the secret login page. What's the password tho and what does it do?????????</h1>
-    <h1>Login</h1>
-    {% if error %}
+    <div class="title-login">
+        <h1>Login</h1>
+        {% if error %}
         <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <form action="{{ url_for('admin_login') }}" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login">
-    </form>
+        {% endif %}
+    </div>
+    <div class="container-login">
+        <form action="{{ url_for('admin_login') }}" method="POST">
+            <input type="text" id="username" name="username" required><br><br>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="home-button">
+        <button><a href="/">Home</a></button>
+    </div>
+
+    
+    
 </body>
 </html>
